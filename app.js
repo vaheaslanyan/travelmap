@@ -20,7 +20,7 @@ mongoose.connect(url, {
 	console.log("Connected to DB");
 }).catch(err => {
 	console.log("ERROR: ", err.message);
-});
+})
 
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({extended: true}));
@@ -28,12 +28,19 @@ app.use(express.static(__dirname + "/public"));
 
 
 app.get("/", function(req, res){
-	res.render("index")
+		Location.find({}, function(err, allLocations){
+		if(err){
+			console.log(err);
+		} else {
+			//render
+			res.render("index", {locs: allLocations});
+		}
+	});
 });
 
 app.get("/map", function(req, res){
 	res.redirect("/")
-})
+});
 
 //New Route
 app.get("/map/new", function(req, res){
@@ -60,4 +67,4 @@ app.post("/map", function(req, res){
 
 app.listen(3000, function(){
 	console.log("Server listening on port 3000")
-})
+});
