@@ -1,32 +1,9 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-		<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-		<script type="text/javascript">
-		google.charts.load('current', {
-        'packages':['geochart'],
-        // Note: you will need to get a mapsApiKey for your project.
-        // See: https://developers.google.com/chart/interactive/docs/basic_load_libs#load-settings
-        'mapsApiKey': 'AIzaSyD-9tSrke72PouQMnMX-a7eZSW0jkFMBWY'
-      });
-      google.charts.setOnLoadCallback(drawRegionsMap);
 		
-      function drawRegionsMap() {
-        var data = google.visualization.arrayToDataTable([
-          ['Country'],
-			<% locs.forEach(function(location) { %>
-				['<%= location.country %>'],
-			<% }); %>
-        ]);
-
-        var options = {};
-
-        var chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
-
-        chart.draw(data, options);
-      }
-		</script>
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+		
 		<title>Traveler's Check Map</title>
 	</head>
 	<body>
