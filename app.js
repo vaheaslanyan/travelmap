@@ -1,12 +1,14 @@
-var express 	= require("express"),
-	app			= express();
+var express 		= require("express"),
+	app				= express();
 
-var mongoose 	= require("mongoose"),
-	bodyParser	= require("body-parser"),
-	flash 		= require("connect-flash");
+var mongoose 		= require("mongoose"),
+	bodyParser		= require("body-parser"),
+	flash 			= require("connect-flash"),
+	passport 		= require("passport"),
+	LocalStrategy 	= require("passport-local")
 
-var Location	= require("./models/location"),
-	User 		= require("./models/user");
+var Location		= require("./models/location"),
+	User 			= require("./models/user");
 
 //an enviromental url for the db and backup for our mongodb url in case the enviromental variable breaks for some reason
 var url = process.env.DATABASEURL || "mongodb://localhost/travelmap";
@@ -86,6 +88,47 @@ app.post("/map", function(req, res){
 			res.redirect("/map");
 		}
 	});
+});
+
+//=======AUTH ROUTES========
+
+//show register form
+app.get("/register", function(req, res){
+	res.render("register");
+});
+//handling register logic
+app.post("/register", function(req, res){
+	var newUser = new User({username: req.body.username});
+	User.register(newUser, req.body.password, function(err, user){
+		if(err){
+			req.flash("error", err.message);// flash message that shows the user the error
+			return res.render("register");
+		}
+		passport.authenticate("local")(req, res, function(){
+			req.flash("success", "Welcome " + user.username);// flash message when successfully signed up
+			res.redirect("/map");
+		});
+	});
+});
+
+//show login form
+app.get("/login", function(req, res){
+	res.render("login");
+});
+
+//handling login logic (app.post("login", middleware, callback))
+app.post("/login", passport.authenticate("local", 
+	{
+		successRedirect: "/map",
+		failureRedirect: "/login"
+	}), function(req, res){
+});
+
+//logout route
+app.get("/logout", function(req, res){
+	req.logout();
+	req.flash("error", "Logged Out"); // flash messages are added right before redirecting
+	res.redirect("/map");
 });
 
 

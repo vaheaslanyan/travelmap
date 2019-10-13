@@ -30,7 +30,14 @@
 		<title>Traveler's Check Map</title>
 	</head>
 	<body>
-		
+		<% if(!currentUser){ %>
+		<a href="/login">Login</a>
+		<a href="/register">Sign Up</a>
+		<% } else { %>
+		<a href="#">Signed In as <%= currentUser.username %></a>
+		<a href="/logout">Logout</a>
+		<% } %>
+
     	<div id="regions_div" style="width: 900px; height: 500px;"></div>
 
 <% include partials/footer %>
