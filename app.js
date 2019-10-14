@@ -8,7 +8,8 @@ var mongoose 		= require("mongoose"),
 	LocalStrategy 	= require("passport-local")
 
 var Location		= require("./models/location"),
-	User 			= require("./models/user");
+	User 			= require("./models/user"),
+	middleware		= require("./middleware/index.js");
 
 //an enviromental url for the db and backup for our mongodb url in case the enviromental variable breaks for some reason
 var url = process.env.DATABASEURL || "mongodb://localhost/travelmap";
@@ -53,8 +54,8 @@ app.use(function(req, res, next){
 });
 
 
-app.get("/", function(req, res){
-		Location.find({}, function(err, allLocations){
+app.get("/", middleware.isLoggedIn,  function(req, res){
+		Location.find({"author.id": req.user._id}, function(err, allLocations){
 		if(err){
 			console.log(err);
 		} else {
@@ -78,7 +79,12 @@ app.post("/map", function(req, res){
 	//get data and add to the array
 	var city = req.body.city;
 	var country = req.body.country;
-	var newLocation = {city: city, country: country}
+	var author = {
+		id: req.user._id,
+		username: req.user.username
+	}
+	var newLocation = {city: city, country: country, author: author}
+
 	//Create a new Location and save
 	Location.create(newLocation, function(err, newlyCreated){
 		if(err){
