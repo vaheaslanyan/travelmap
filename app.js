@@ -70,12 +70,12 @@ app.get("/map", function(req, res){
 });
 
 //New Route
-app.get("/map/new", function(req, res){
+app.get("/map/new", middleware.isLoggedIn, function(req, res){
 	res.render("new")
 });
 
 //Create Route
-app.post("/map", function(req, res){
+app.post("/map", middleware.isLoggedIn, function(req, res){
 	//get data and add to the array
 	var city = req.body.city;
 	var country = req.body.country;
@@ -102,6 +102,7 @@ app.post("/map", function(req, res){
 app.get("/register", function(req, res){
 	res.render("register");
 });
+
 //handling register logic
 app.post("/register", function(req, res){
 	var newUser = new User({username: req.body.username});
