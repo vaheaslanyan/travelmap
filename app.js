@@ -5,7 +5,8 @@ var mongoose 		= require("mongoose"),
 	bodyParser		= require("body-parser"),
 	flash 			= require("connect-flash"),
 	passport 		= require("passport"),
-	LocalStrategy 	= require("passport-local")
+	LocalStrategy 	= require("passport-local"),
+	methodOverride	= require("method-override");
 
 var Location		= require("./models/location"),
 	User 			= require("./models/user"),
@@ -17,6 +18,7 @@ var url = process.env.DATABASEURL || "mongodb://localhost/travelmap";
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static(__dirname + "/public"));
+app.use(methodOverride("_method"));
 app.use(flash());
 
 //mongoose setup	
@@ -53,7 +55,7 @@ app.use(function(req, res, next){
 	next();
 });
 
-
+//Index Route
 app.get("/", middleware.isLoggedIn,  function(req, res){
 		Location.find({"author.id": req.user._id}, function(err, allLocations){
 		if(err){
@@ -96,6 +98,16 @@ app.post("/map", middleware.isLoggedIn, function(req, res){
 	});
 });
 
+//Destroy Route
+app.delete("/map/:id", middleware.checkLocationOwnership, function(req, res){
+	Location.findByIdAndRemove(req.params.id, function(err){
+		if(err){
+			res.redirect("/");
+		} else {
+			res.redirect("/");
+		}
+	})
+});
 //=======AUTH ROUTES========
 
 //show register form

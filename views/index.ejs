@@ -1,15 +1,12 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> -->
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.css" crossorigin="anonymous">
 		<link rel="stylesheet" href="stylesheets/style.css">
 		<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 		<script type="text/javascript">
 		google.charts.load('current', {
         'packages':['geochart'],
-        // Note: you will need to get a mapsApiKey for your project.
-        // See: https://developers.google.com/chart/interactive/docs/basic_load_libs#load-settings
         'mapsApiKey': 'AIzaSyD4G8iqHb0uqvI2fWVyEYNJHOzQvVMjKng'
       });
       google.charts.setOnLoadCallback(drawRegionsMap);
@@ -32,7 +29,6 @@
 		<title>Traveler's Check Map</title>
 	</head>
 	<body>
-
 
 	<div id="landscape">
 		<div class="container">	
@@ -114,8 +110,13 @@
 			</h3>	
 			<ul>
 				<% locations.forEach(function(location){ %>
-					<li> <%= location.country %> </li>
+					<li> <%= location.country %>
+						<form class="deleteForm" action="/map/<%= location._id %>?_method=DELETE" method="POST">
+							<button class="btn btn-xs btn-danger"><i class="close icon"></i></button>
+						</form>
+					</li>
 				<% }); %>
+
 			</ul>
 		</div>
 	</div>

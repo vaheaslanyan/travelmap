@@ -30,7 +30,7 @@ div[id="bar-bottom"] {
 }
 
 @media screen and (orientation:landscape) {
-	#portrait {
+	#portrait  {
 		display: none;
 		font-size: 100rem;
 	}
