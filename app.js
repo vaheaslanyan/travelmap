@@ -60,7 +60,7 @@ app.get("/", middleware.isLoggedIn,  function(req, res){
 			console.log(err);
 		} else {
 			//render
-			res.render("index", {locs: allLocations});
+			res.render("index", {locations: allLocations});
 		}
 	});
 });
