@@ -1,3 +1,100 @@
+html > body {
+	font-family: 'Quicksand', sans-serif;
+}
+
+#side-bar {
+	height: 100vh;
+	background: #7400a6;
+	text-align: center;
+	padding: 2rem 1rem;
+}
+
+#side-bar h3 {
+	font-size: 1rem;
+	color: white;
+	font-weight: 500;
+}
+
+#side-bar p {
+	font-size: 0.7rem;
+}
+
+#side-bar a {
+	text-decoration: none;
+	color: white;
+}
+
+#side-bar a:hover, #side-bar a:active {
+	font-weight: 600;
+}
+
+#side-bar a i:hover, #side-bar a i:active {
+	text-shadow: 0 0px 1px white;
+}
+
+#side-bar .logout-button {
+	position: absolute;
+	bottom: 2rem;
+	width: 100%;
+	margin-left: -1rem;	
+}
+
+.add-location {
+	color: white;
+	position: absolute;
+  	top: 50%;
+  	left: 50%;
+  	transform: translate(-50%, -50%);
+}
+
+#globe-btn {
+	font-size: 4rem;
+}
+
+
+#map-div {
+	height: 100vh;
+	align-content: center;
+	display: flex;
+	flex-wrap: wrap;
+	padding: 0;
+}
+
+rect {
+	width: 100vw;
+}
+
+/*Fullscreen mode for iPhone */
+#appModeNote {
+	background-color: #333333 ;
+	border-top: 5px solid #000000 ;
+	bottom: 0px ;
+	color: #F0F0F0 ;
+	display: none ;
+	font-family: helvetica ;
+	left: 0px ;
+	padding: 10px 0px 10px 0px ;
+	position: fixed ;
+	text-align: center ;
+	width: 100% ;
+	}
+#appModeNote em {
+	display: block ;
+	font-size: 20px ;
+	font-weight: bold ;
+	line-height: 26px ;
+	}
+#appModeNote span {
+	display: block ;
+	font-size: 14px ;
+	line-height: 20px ;
+	}
+/*-------------*/
+
+
+
+
+
 #ui-page {
     position:absolute;
     top:0;
@@ -10,12 +107,7 @@
 
 #regions_div {
 	width: 100%;
-	height: 90vh;
-}
-
-#sideNav {
-	width: 100%;
-	padding: 0;
+	height: 100vh;
 }
 
 div[id="bar-bottom"] {
@@ -32,6 +124,7 @@ div[id="bar-bottom"] {
 @media screen and (orientation:landscape) {
 	#portrait  {
 		display: none;
-		font-size: 100rem;
 	}
 }
+
+

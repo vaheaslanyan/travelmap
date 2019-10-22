@@ -1,8 +1,27 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.css" crossorigin="anonymous">
 		<link rel="stylesheet" href="stylesheets/style.css">
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+		<script type="text/javascript" src="javascript/script.js"></script>
+		<script type="text/javascript" src="jquery-1.4.2.min.js"></script>
+		<script src="https://kit.fontawesome.com/e042c340d4.js" crossorigin="anonymous"></script>
+		
+		<meta
+        	name="apple-mobile-web-app-capable"
+        	content="yes"
+        />
+		<meta
+        	name="apple-mobile-web-app-status-bar-style"
+        	content="black"
+        />
+		<meta
+        	name="viewport"
+        	content="width=device-width"
+        />
+ 
+		<!-- Google GeoChart API -->
+		<link href="https://fonts.googleapis.com/css?family=Quicksand&display=swap" rel="stylesheet">
 		<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 		<script type="text/javascript">
 		google.charts.load('current', {
@@ -26,65 +45,51 @@
         chart.draw(data, options);
       }
 		</script>
-		<title>Traveler's Check Map</title>
 	</head>
 	<body>
 
-	<div id="landscape">
-		<div class="container">	
-			
-			<!-- Grid to manage screen layout -->
-			<div class="ui grid">
-				
-				<!-- Sidebar -->
-				<div class="three wide column">
-					<div class="ui bottom attached segment pushable">
-						<div id="sideNav" class="ui visible inverted left vertical sidebar menu">
-							<a class="item" href="/map/new">
-							  <i class="home icon"></i>
-							  Add a Country
-							</a>
-							<a class="item">
-							  <i class="block layout icon"></i>
-							  Remove a Country
-							</a>
-							<div id="bar-bottom">
-								<% if(!currentUser){ %>
-								<a class="item bottm" href="/login">Login</a>
-								<a class="item bottm" href="/register">Sign Up</a>
-								<% } else { %>
-								<a class="item bottm" href="#">Signed In as <%= currentUser.username %></a>
-								<a class="item bottm" href="/logout">Logout</a>
-								<% } %>
-							</div>
-						</div>
-					</div>
+<div id="landscape">
+	<div class="container-fluid">
+		<div class="row">
+			<div id="side-bar" class="col-2">
+				<div class="add-location">
+					<a href="/map/new">
+					<i id="globe-btn" class="fas fa-globe-americas"></i>
+					<p>
+						Add a country
+					</p>
+					</a>
 				</div>
-				
-				<!-- Rendering the google GeoChart map-->
-				<div class="thirteen wide column">
-				  <div class="pusher">
-					<div class="ui basic segment">
-						<div id="regions_div"></div>
-					</div>
-				  </div>
+				<% if(!currentUser){ %>
+				<h3>
+					Please 
+					<a href="/login">Login</a>
+					or
+					<a href="/register">Sign Up</a>
+				</h3>				
+				<% } else { %>
+				<h3>
+					Hi, <%= currentUser.username %>
+				</h3>
+				<div class="logout-button">
+					<a href="/logout">Logout <i class="fas fa-sign-out-alt"></i></a>
 				</div>
-				
+				<% } %>
+			</div>
+			<div id="map-div" class="col-10">
+				<div id="regions_div"></div>
 			</div>
 		</div>
 	</div>
 
-
+				<!-- Rendering the google GeoChart map-->
+	
 	<div id="portrait">
 		<div class="container">
 			<!-- User label -->
 			<div class="ui blue label">
 			  <i class="user circle icon"></i> <%= currentUser.username %>
 			</div>
-			
-			<h3>
-				My Stats
-			</h3>
 				<h4>
 					There are 195 countries in the world	
 				</h4>
