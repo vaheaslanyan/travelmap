@@ -3,23 +3,12 @@
 	<head>
 		<link rel="stylesheet" href="stylesheets/style.css">
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+		<script
+		  src="https://code.jquery.com/jquery-3.4.1.js"
+		  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+		  crossorigin="anonymous"></script>
 		<script type="text/javascript" src="javascript/script.js"></script>
-		<script type="text/javascript" src="jquery-1.4.2.min.js"></script>
 		<script src="https://kit.fontawesome.com/e042c340d4.js" crossorigin="anonymous"></script>
-		
-		<meta
-        	name="apple-mobile-web-app-capable"
-        	content="yes"
-        />
-		<meta
-        	name="apple-mobile-web-app-status-bar-style"
-        	content="black"
-        />
-		<meta
-        	name="viewport"
-        	content="width=device-width"
-        />
- 
 		<!-- Google GeoChart API -->
 		<link href="https://fonts.googleapis.com/css?family=Quicksand&display=swap" rel="stylesheet">
 		<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -47,7 +36,7 @@
 		</script>
 	</head>
 	<body>
-
+		
 <div id="landscape">
 	<div class="container-fluid">
 		<div class="row">
@@ -71,6 +60,10 @@
 				<h3>
 					Hi, <%= currentUser.username %>
 				</h3>
+				
+				
+
+
 				<div class="logout-button">
 					<a href="/logout">Logout <i class="fas fa-sign-out-alt"></i></a>
 				</div>
@@ -87,33 +80,35 @@
 <div id="portrait">
 	<div class="container">
 			<h4>
-				There are 195 countries in the world	
+				There are <span>195</span> countries in the world	
 			</h4>
 			<h4>
-				I visited 
+				I've been to 
 					<% var count = 0; %>
 					<% for ( i = 0; i < locations.length; i++){ %>
 					<% count++; %>
 					<% } %>
-					<%= count %>
+					<span><%= count %></span>
 				 countries
 			</h4>
 			<h4>
-				<% var countriesLeft = 195-count %>
-				<%= countriesLeft %> countries left for me to visit
+				That is
+				<% var countriesPercent = Math.round(100 * (count/195)) %>
+				<span><%= countriesPercent %>%</span> of countries explored
 			</h4>
 			<h4>
-				<% var countriesPercent = Math.round(100 * (count/195)) %>
-				<%= countriesPercent %>% of countries explored
+				<% var countriesLeft = 195-count %>
+				<span><%= countriesLeft %></span> countries left for me to visit
 			</h4>
+
 		<h3>
-			Countries I've been to:
+			Explored countries:
 		</h3>	
 		<ul>
 			<% locations.forEach(function(location){ %>
 				<li> <%= location.country %>
 					<form class="deleteForm" action="/map/<%= location._id %>?_method=DELETE" method="POST">
-						<button class="btn btn-xs btn-danger"><i class="close icon"></i></button>
+						<button class="btn btn-xs btn-danger">Remove<i class="close icon"></i></button>
 					</form>
 				</li>
 			<% }); %>

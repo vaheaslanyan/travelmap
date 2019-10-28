@@ -1,7 +1,44 @@
 html > body {
 	font-family: 'Quicksand', sans-serif;
+	background: #7400a6;
 }
 
+/*Portrait Mode*/
+#portrait {
+	color: white;
+}
+
+#portrait h4 {
+	text-align: center;
+	font-size: 4rem;
+	margin-bottom: 5rem;
+}
+
+#portrait h3 {
+	margin-top: 15rem;
+	font-size: 4rem;
+	text-align: center;
+	margin-bottom: 4rem;
+}
+
+h4 span {
+	font-size: 6rem
+}
+
+#portrait .container {
+	padding: 2rem;
+}
+
+ul {
+	font-size: 3rem;
+	list-style-type: none;
+}
+
+#portrait li button {
+	
+}
+
+/*Landscape Mode*/
 #side-bar {
 	height: 100vh;
 	background: #7400a6;
@@ -64,45 +101,12 @@ rect {
 	width: 100vw;
 }
 
-#portrait {
-	background: #7400a6;
-	color: white;
-}
-
-/*Fullscreen mode for iPhone */
-#appModeNote {
-	background-color: #333333 ;
-	border-top: 5px solid #000000 ;
-	bottom: 0px ;
-	color: #F0F0F0 ;
-	display: none ;
-	font-family: helvetica ;
-	left: 0px ;
-	padding: 10px 0px 10px 0px ;
-	position: fixed ;
-	text-align: center ;
-	width: 100% ;
-	}
-
-#appModeNote em {
-	display: block ;
-	font-size: 20px ;
-	font-weight: bold ;
-	line-height: 26px ;
-	}
-
-#appModeNote span {
-	display: block ;
-	font-size: 14px ;
-	line-height: 20px ;
-	}
-/*-------------*/
-
 #regions_div {
 	width: 100%;
 	height: 100vh;
 }
 
+/*Toggle orientation*/
 @media screen and (orientation:portrait) {
 	#landscape {
 		display: none;
