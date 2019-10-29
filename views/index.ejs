@@ -4,10 +4,12 @@
 		<link rel="stylesheet" href="stylesheets/style.css">
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 		<script
-		  src="https://code.jquery.com/jquery-3.4.1.js"
-		  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
-		  crossorigin="anonymous"></script>
+		  src="https://code.jquery.com/jquery-1.12.4.js"
+		  integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU="
+		  crossorigin="anonymous">
+		</script>
 		<script type="text/javascript" src="javascript/script.js"></script>
+		<script src="javascript/swipeTo.js"></script>
 		<script src="https://kit.fontawesome.com/e042c340d4.js" crossorigin="anonymous"></script>
 		<!-- Google GeoChart API -->
 		<link href="https://fonts.googleapis.com/css?family=Quicksand&display=swap" rel="stylesheet">
@@ -61,9 +63,6 @@
 					Hi, <%= currentUser.username %>
 				</h3>
 				
-				
-
-
 				<div class="logout-button">
 					<a href="/logout">Logout <i class="fas fa-sign-out-alt"></i></a>
 				</div>
@@ -89,7 +88,6 @@
 					<% count++; %>
 					<% } %>
 					<span><%= count %></span>
-				 countries
 			</h4>
 			<h4>
 				That is
@@ -98,21 +96,30 @@
 			</h4>
 			<h4>
 				<% var countriesLeft = 195-count %>
-				<span><%= countriesLeft %></span> countries left for me to visit
+				<span><%= countriesLeft %></span> left for me to visit
 			</h4>
 
 		<h3>
 			Explored countries:
-		</h3>	
-		<ul>
+		</h3>
+		
+		<!--new list with swipe to delete-->
+		<div class="list">
 			<% locations.forEach(function(location){ %>
-				<li> <%= location.country %>
+			  <div class="item"> 
+				<a href="#" class="item-swipe"><%= location.country %></a>
+				<div class="item-back">
 					<form class="deleteForm" action="/map/<%= location._id %>?_method=DELETE" method="POST">
-						<button class="btn btn-xs btn-danger">Remove<i class="close icon"></i></button>
+							<button class="action first btn-delete" type="button">
+								<i class="fa fa-trash-o"></i>
+							</button>
 					</form>
-				</li>
+				</div>
+			  </div>
 			<% }); %>
-		</ul>
+		  ...
+
+		</div>
 	</div>
 </div>
 
