@@ -9,7 +9,6 @@
 		  crossorigin="anonymous">
 		</script>
 		<script type="text/javascript" src="javascript/script.js"></script>
-		<script src="javascript/swipeTo.js"></script>
 		<script src="https://kit.fontawesome.com/e042c340d4.js" crossorigin="anonymous"></script>
 		<!-- Google GeoChart API -->
 		<link href="https://fonts.googleapis.com/css?family=Quicksand&display=swap" rel="stylesheet">
@@ -103,23 +102,19 @@
 			Explored countries:
 		</h3>
 		
-		<!--new list with swipe to delete-->
-		<div class="list">
+		<ul class="list-group list-group-flush">
 			<% locations.forEach(function(location){ %>
-			  <div class="item"> 
-				<a href="#" class="item-swipe"><%= location.country %></a>
-				<div class="item-back">
-					<form class="deleteForm" action="/map/<%= location._id %>?_method=DELETE" method="POST">
-							<button class="action first btn-delete" type="button">
-								<i class="fa fa-trash-o"></i>
-							</button>
-					</form>
-				</div>
-			  </div>
-			<% }); %>
-		  ...
-
-		</div>
+			<div>
+				<li class="list-group-item"><%= location.country %>
+					<div class="country-delete">
+						<form class="deleteForm" action="/map/<%= location._id %>?_method=DELETE" method="POST">
+								<input type="submit" class="btn btn-outline-danger" value="X">
+						</form>
+					</div>
+				</li>
+			</div>
+			<% }) %>
+		</ul>
 	</div>
 </div>
 

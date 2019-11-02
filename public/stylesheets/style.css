@@ -34,6 +34,12 @@ ul {
 	list-style-type: none;
 }
 
+.country-delete {
+	display: inline-block;
+	position: relative;
+	float: right;
+}
+
 /*Landscape Mode*/
 #side-bar {
 	height: 100vh;
@@ -121,7 +127,7 @@ rect {
 	}
 }
 
-/* Swiping */
+/* Swiping
 
 .list {
   width: 100%;
@@ -207,3 +213,5 @@ rect {
 .btn-delete { background: firebrick; }
 
 .btn-check { background: green; }
+
+*/
