@@ -1,43 +1,5 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<link rel="stylesheet" href="stylesheets/style.css">
-		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-		<script
-		  src="https://code.jquery.com/jquery-1.12.4.js"
-		  integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU="
-		  crossorigin="anonymous">
-		</script>
-		<script type="text/javascript" src="javascript/script.js"></script>
-		<script src="https://kit.fontawesome.com/e042c340d4.js" crossorigin="anonymous"></script>
-		<!-- Google GeoChart API -->
-		<link href="https://fonts.googleapis.com/css?family=Quicksand&display=swap" rel="stylesheet">
-		<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-		<script type="text/javascript">
-		google.charts.load('current', {
-        'packages':['geochart'],
-        'mapsApiKey': 'AIzaSyD4G8iqHb0uqvI2fWVyEYNJHOzQvVMjKng'
-      });
-      google.charts.setOnLoadCallback(drawRegionsMap);
-		
-      function drawRegionsMap() {
-        var data = google.visualization.arrayToDataTable([
-          ['Country'],
-			<% locations.forEach(function(location) { %>
-				['<%= location.country %>'],
-			<% }); %>
-        ]);
+<% include partials/header %>
 
-        var options = {};
-
-        var chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
-
-        chart.draw(data, options);
-      }
-		</script>
-	</head>
-	<body>
-		
 <div id="landscape">
 	<div class="container-fluid">
 		<div class="row">
@@ -101,13 +63,21 @@
 		<h3>
 			Explored countries:
 		</h3>
+		<div class="add-location" id="kaka">
+					<a href="/map/new">
+					<i id="globe-btn" class="fas fa-globe-americas"></i>
+					<p>
+						Add a country
+					</p>
+					</a>
+		</div>
 		
 		<ul class="list-group list-group-flush">
 			<% locations.forEach(function(location){ %>
 			<div>
 				<li class="list-group-item"><%= location.country %>
 					<div class="country-delete">
-						<form class="deleteForm" action="/map/<%= location._id %>?_method=DELETE" method="POST">
+						<form class="deleteForm" onclick="return confirm ('Are you sure you want to delete <%= location.country %>?')" action="/map/<%= location._id %>?_method=DELETE" method="POST">
 								<input type="submit" class="btn btn-outline-danger" value="X">
 						</form>
 					</div>
@@ -118,4 +88,29 @@
 	</div>
 </div>
 
+<!-- Google GeoChart API -->
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+	google.charts.load('current', {
+		'packages':['geochart'],
+		'mapsApiKey': 'AIzaSyD4G8iqHb0uqvI2fWVyEYNJHOzQvVMjKng'
+	});
+	google.charts.setOnLoadCallback(drawRegionsMap);
+
+	function drawRegionsMap() {
+		var data = google.visualization.arrayToDataTable([
+		  ['Country'],
+			<% locations.forEach(function(location) { %>
+				['<%= location.country %>'],
+			<% }); %>
+		]);
+
+		var options = {};
+
+		var chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
+
+		chart.draw(data, options);
+	}
+</script>
+		
 <% include partials/footer %>

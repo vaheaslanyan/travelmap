@@ -40,6 +40,12 @@ ul {
 	float: right;
 }
 
+#portrait .add-location {
+	color: green;
+	text-align: center;
+	margin-bottom: 4rem;
+}
+
 /*Landscape Mode*/
 #side-bar {
 	height: 100vh;
@@ -78,7 +84,7 @@ ul {
 	margin-left: -1rem;	
 }
 
-.add-location {
+#landscape .add-location {
 	color: white;
 	position: absolute;
   	top: 50%;
