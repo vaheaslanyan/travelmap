@@ -1,9 +1,25 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<link rel="stylesheet" href="stylesheets/style.css">
+		<link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 		<link href="https://fonts.googleapis.com/css?family=Quicksand&display=swap" rel="stylesheet">
 		<title>Traveler's Check Map</title>
+		<meta
+        	name="apple-mobile-web-app-capable"
+        	content="yes"
+		/>
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" /> 
 	</head>
 	<body>
+		
+		<!-- flash messages -->
+<div class="container">
+	<% if(error && error.length > 0){ %>
+	<div class="alert alert-danger" role="alert"><%= error %></div>
+	<% } %>
+	<% if(success && success.length > 0){ %>
+	<div class="alert alert-success" role="alert"><%= success %></div>
+	<% } %>
+</div>

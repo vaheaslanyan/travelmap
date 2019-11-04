@@ -21,7 +21,7 @@
 				</h3>				
 				<% } else { %>
 				<h3>
-					Hi, <%= currentUser.username %>
+					Hi, <%= currentUser.name %>
 				</h3>
 				
 				<div class="logout-button">
@@ -78,7 +78,7 @@
 				<li class="list-group-item"><%= location.country %>
 					<div class="country-delete">
 						<form class="deleteForm" onclick="return confirm ('Are you sure you want to delete <%= location.country %>?')" action="/map/<%= location._id %>?_method=DELETE" method="POST">
-								<input type="submit" class="btn btn-outline-danger" value="X">
+								<input type="submit" class="btn btn-sm btn-outline-danger" value="x">
 						</form>
 					</div>
 				</li>
@@ -89,6 +89,16 @@
 </div>
 
 <!-- Google GeoChart API -->
+<script type="text/javascript">
+window.onorientationchange = function() { 
+        var orientation = window.orientation; 
+            switch(orientation) { 
+                case 0:
+                case 90:
+                case -90: window.location.reload(); 
+                break; } 
+    };
+</script>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript">
 	google.charts.load('current', {

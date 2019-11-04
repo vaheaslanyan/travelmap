@@ -8,6 +8,11 @@ var mongoose 		= require("mongoose"),
 	LocalStrategy 	= require("passport-local"),
 	methodOverride	= require("method-override");
 
+//password reset packages
+var async			= require("async"),
+	nodemailer		= require("nodemailer"),
+	crypto			= require("crypto");//we don't have to install this one just require 
+
 var Location		= require("./models/location"),
 	User 			= require("./models/user"),
 	middleware		= require("./middleware/index.js");
@@ -117,7 +122,7 @@ app.get("/register", function(req, res){
 
 //handling register logic
 app.post("/register", function(req, res){
-	var newUser = new User({username: req.body.username});
+	var newUser = new User({username: req.body.username, name: req.body.name, email: req.body.email});
 	User.register(newUser, req.body.password, function(err, user){
 		if(err){
 			req.flash("error", err.message);// flash message that shows the user the error
@@ -148,6 +153,62 @@ app.get("/logout", function(req, res){
 	req.logout();
 	req.flash("error", "Logged Out"); // flash messages are added right before redirecting
 	res.redirect("/map");
+});
+
+//password reset
+app.get("/forgot", function(req, res){
+	res.render("forgot");
+});
+
+app.post("/forgot", function(req, res, next){
+	async.waterfall([
+		function(done) {
+			crypto.randomBytes(20, function(err, buf) {
+				var token = buf.toString('hex');
+				done(err, token);
+			});
+		},
+		function(token, done) {
+			User.findOne({email: req.body.email}, function(err, user){
+				if(!user) {
+					req.flash('error', 'No account with that email address exists. Please check the spelling and try again.');
+					return res.redirect("/forgot");
+				}
+				
+				user.resetPasswordToken = token;
+				user.resetPasswordExpress = Date.now() + 3600000 // 1 hour
+				
+				user.save(function(err) {
+					done(err, token, user);	
+				});
+			});
+		},
+		function(token, user, done) {
+			var smtpTransport = nodemailer.createTransport({ //setting up Gmail SMTP
+				service: "Gmail",
+				auth: {
+					user: 'vahe.help@gmail.com',
+					pass: process.env.GMAILPW
+				}
+		});
+		var mailOptions = {
+			to: user.email,
+			from: 'vahe.sde@gmail.com',
+			subject: "Traveler's Map Password Reset",
+			text: 	"You have requested a password reset." + 
+					"If you forgot your password, don't worry just follow the link, or paste it in your browser to complete the process:" + 
+					"http://" + req.headers.host + "/reset/" + token + '\n\n' +
+					"If you did not request this, please reply to this email."
+		};
+		smtpTransport.sendMail(mailOptions, function(err){
+			console.log("mail sent");
+			req.flash('success', 'An e-mail has been sent to ' + user.email + ' with further instructions.');
+			done(err, 'done');
+		});
+		}
+	], function(err){
+		res.redirect("/forgot");
+	});
 });
 
 
