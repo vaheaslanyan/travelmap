@@ -18,7 +18,7 @@ var Location		= require("./models/location"),
 	middleware		= require("./middleware/index.js");
 
 //an enviromental url for the db and backup for our mongodb url in case the enviromental variable breaks for some reason
-var url = process.env.DATABASEURL || "mongodb://localhost/travelmap";
+const url = process.env.DATABASEURL || "mongodb://localhost/travelmap";
 
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({extended: true}));
@@ -75,6 +75,7 @@ app.get("/", middleware.isLoggedIn,  function(req, res){
 app.get("/map", function(req, res){
 	res.redirect("/")
 });
+
 
 //New Route
 app.get("/map/new", middleware.isLoggedIn, function(req, res){
@@ -185,7 +186,7 @@ app.post("/forgot", function(req, res, next){
 		},
 		function(token, user, done) {
 			var smtpTransport = nodemailer.createTransport({ //setting up Gmail SMTP
-				service: "Gmail",
+				service: 'Gmail',
 				auth: {
 					user: 'vahe.help@gmail.com',
 					pass: process.env.GMAILPW
@@ -193,12 +194,12 @@ app.post("/forgot", function(req, res, next){
 		});
 		var mailOptions = {
 			to: user.email,
-			from: 'vahe.sde@gmail.com',
+			from: 'vahe.help@gmail.com',
 			subject: "Traveler's Map Password Reset",
-			text: 	"You have requested a password reset." + 
-					"If you forgot your password, don't worry just follow the link, or paste it in your browser to complete the process:" + 
+			text: 	"You have requested a password reset.\n\n" + 
+					"If you forgot your password, don't worry just follow the link, or paste it in your browser to complete the process:\n\n" + 
 					"http://" + req.headers.host + "/reset/" + token + '\n\n' +
-					"If you did not request this, please reply to this email."
+					"If you did not request this, please reply to this email.\n\n"
 		};
 		smtpTransport.sendMail(mailOptions, function(err){
 			console.log("mail sent");
@@ -211,6 +212,62 @@ app.post("/forgot", function(req, res, next){
 	});
 });
 
+app.get("/reset/:token", function(req, res){
+	User.findOne({resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now()}}, function(err, user){
+		if (!user) {
+			req.flash("error", "Password reset token is invalid or has expired. Please request a new reset link.");
+			return res.redirect("/forgot");
+		}
+		res.render("reset", {token: req.params.token});
+	});
+});
+
+app.post("/reset/:token", function(req, res){
+	async.waterfall([
+		function(done){
+			User.findOne({resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now()}}, function(err, user){
+				if(!user){
+					req.flash("error", "Password reset token is invalid or has expired. Please request a new reset link.");
+					return res.redirect("back");
+				}
+				//suppose to have confirm password logic here but it is in script.js instead. Check to see which one is better
+				user.setPassword(req.body.password, function(err) {
+					user.resetPasswordToken = undefined;
+					user.resetPasswordExpires = undefined;
+
+					user.save(function(err){
+						req.logIn(user, function(err) {
+							done(err, user);
+						});
+					});
+				})
+				
+			});
+		},
+		function(user, done) {
+			var smtpTransport = nodemailer.createTransport({
+				service: "Gmail",
+				auth: {
+					user: "vahe.help@gmail.com",
+					pass: process.env.GMAILPW
+				}
+			});
+			var mailOptions = {
+				to: user.email,
+				from: "vahe.help@gmail.com",
+				subject: "Your Traveler's Map password has been changed",
+				text: "Hi " + user.name +
+					"This is a confirmation that the password for your account " + user.email + " has been successfully changed."
+			};
+			smtpTransport.sendMail(mailOptions, function(err) {
+				req.flash("success", "Done! Your password has been changed.");
+				done(err);
+			});
+		}
+	], function(err) {
+		res.redirect("/campgrounds");
+	});
+});
 
 app.listen(3000, function(){
 	console.log("Server listening on port 3000")

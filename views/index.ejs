@@ -103,7 +103,7 @@ window.onorientationchange = function() {
 <script type="text/javascript">
 	google.charts.load('current', {
 		'packages':['geochart'],
-		'mapsApiKey': 'AIzaSyD4G8iqHb0uqvI2fWVyEYNJHOzQvVMjKng'
+		'mapsApiKey': '<%= process.env.GOOGLEAPI %>'
 	});
 	google.charts.setOnLoadCallback(drawRegionsMap);
 
