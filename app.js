@@ -45,7 +45,7 @@ mongoose.connect(url, {
 
 //PASSPORT CONFIGURATION
 app.use(require("express-session")({
-	secret: "I never wear v-neck cuz I'm all about my crew, reppin westside yeah that W",
+	secret: process.env.PSECRET,
 	resave: false,
 	saveUninitialized: false
 }));

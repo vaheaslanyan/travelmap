@@ -7,6 +7,10 @@ button {
 	text-decoration: none;
 }
 
+.form-group {
+	text-align: left;
+}
+
 /*Portrait Mode*/
 .navbar-dark {
 	background-color: #7400a6;
