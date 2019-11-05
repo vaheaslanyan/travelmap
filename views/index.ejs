@@ -38,6 +38,30 @@
 </div>
 
 <div id="portrait">
+
+<!-- Navbar -->
+	<nav id="nav-bar" class="navbar navbar-expand-sm navbar-dark" style="background-color: #7400a6">
+			  <a class="navbar-brand" href="/">A</a>
+			  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			  </button>
+
+			  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item">
+						<a class="nav-link" href="/map/new">Add a country</a>
+					</li>
+				</ul>
+				<hr id="nav-devider">
+				<ul class="navbar-nav">
+					<% if(currentUser){ %>
+					<li class="nav-item"><a class="nav-link" href="#">Signed In as <%= currentUser.name %></a></li>
+					<li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>
+					<% } %>	
+				</ul>
+			  </div>
+		</nav>
+	
 	<div class="container">
 			<h4>
 				There are <span>195</span> countries in the world	
@@ -63,14 +87,6 @@
 		<h3>
 			Explored countries:
 		</h3>
-		<div class="add-location" id="kaka">
-					<a href="/map/new">
-					<i id="globe-btn" class="fas fa-globe-americas"></i>
-					<p>
-						Add a country
-					</p>
-					</a>
-		</div>
 		
 		<ul class="list-group list-group-flush">
 			<% locations.forEach(function(location){ %>

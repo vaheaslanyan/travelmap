@@ -31,18 +31,19 @@ router.get("/map/new", middleware.isLoggedIn, function(req, res){
 //Create Route
 router.post("/map", middleware.isLoggedIn, function(req, res){
 	//get data and add to the array
-	var city = req.body.city;
 	var country = req.body.country;
 	var author = {
 		id: req.user._id,
 		username: req.user.username
 	}
-	var newLocation = {city: city, country: country, author: author}
+	var newLocation = {country: country, author: author, unique: true}
 
 	//Create a new Location and save
 	Location.create(newLocation, function(err, newlyCreated){
 		if(err){
 			console.log(err);
+			req.flash('error', 'You already have ' + req.body.country + ' in your list.');
+			res.redirect("/map/new")
 		} else {
 			//redirect back to the page
 			res.redirect("/map");

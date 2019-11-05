@@ -3,7 +3,22 @@ html > body {
 	font-family: 'Quicksand', sans-serif;
 }
 
+button {
+	text-decoration: none;
+}
+
 /*Portrait Mode*/
+.navbar-dark {
+	background-color: #7400a6;
+}
+
+#nav-devider {
+    border: 0;
+    height: 1px;
+	width: 100%;
+    background-image: linear-gradient(to right, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.05));
+}
+
 #portrait {
 	color: #7400a6;
 	background: white;
