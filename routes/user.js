@@ -88,7 +88,7 @@ router.post("/forgot", function(req, res, next){
 				service: 'SendPulse',
 				auth: {
 					user: 'vahe.help@gmail.com',
-					pass: process.env.GMAILPW
+					pass: "'" + process.env.GMAILPW + "'"
 				}
 		});
 		var mailOptions = {
