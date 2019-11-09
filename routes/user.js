@@ -84,7 +84,7 @@ router.post("/forgot", function(req, res, next){
 			});
 		},
 		function(token, user, done) {
-			let transporter = nodemailer.createTransport({ //setting up Gmail SMTP
+			var smtpTransport = nodemailer.createTransport({ //setting up Gmail SMTP
 				service: 'SendPulse',
 				auth: {
 					user: 'vahe.help@gmail.com',
@@ -100,7 +100,7 @@ router.post("/forgot", function(req, res, next){
 					"http://" + req.headers.host + "/reset/" + token + '\n\n' +
 					"If you did not request this, please reply to this email.\n\n"
 		};
-		transporter.sendMail(mailOptions, function(err){
+		smtpTransport.sendMail(mailOptions, function(err){
 			console.log("mail sent");
 			req.flash('success', 'An e-mail has been sent to ' + user.email + ' with further instructions.');
 			done(err, 'done');
