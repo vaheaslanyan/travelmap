@@ -85,7 +85,7 @@ router.post("/forgot", function(req, res, next){
 		},
 		function(token, user, done) {
 			var smtpTransport = nodemailer.createTransport({ //setting up Gmail SMTP
-				service: 'SendPulse',
+				service: 'Gmail',
 				auth: {
 					user: 'vahe.help@gmail.com',
 					pass: process.env.GMAILPW
