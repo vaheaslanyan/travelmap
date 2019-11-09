@@ -6,6 +6,11 @@ var Location		= require("../models/location"),
 	User 			= require("../models/user"),
 	middleware		= require("../middleware/index.js");
 
+//password reset packages
+var async			= require("async"),
+	nodemailer		= require("nodemailer"),
+	crypto			= require("crypto");//we don't have to install this one just require 
+
 //=======AUTH ROUTES========
 
 //show register form
