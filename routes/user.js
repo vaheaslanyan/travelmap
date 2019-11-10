@@ -98,6 +98,7 @@ router.post("/forgot", function(req, res, next){
 			text: 	"You have requested a password reset.\n\n" + 
 					"If you forgot your password, don't worry just follow the link, or paste it in your browser to complete the process:\n\n" + 
 					"http://" + req.headers.host + "/reset/" + token + '\n\n' +
+					"In case you forgot your username it is " + user.username +
 					"If you did not request this, please reply to this email.\n\n"
 		};
 		smtpTransport.sendMail(mailOptions, function(err){
@@ -145,9 +146,9 @@ router.post("/reset/:token", function(req, res){
 		},
 		function(user, done) {
 			var smtpTransport = nodemailer.createTransport({
-				service: "Gmail",
+				service: 'Gmail',
 				auth: {
-					user: "vahe.help@gmail.com",
+					user: 'vahe.help@gmail.com',
 					pass: process.env.GMAILPW
 				}
 			});
