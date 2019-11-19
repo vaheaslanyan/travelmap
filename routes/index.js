@@ -22,6 +22,10 @@ router.get("/map", function(req, res){
 	res.redirect("/")
 });
 
+router.get("/welcome", function(req, res){
+	res.render("welcome")
+});
+
 
 //New Route
 router.get("/map/new", middleware.isLoggedIn, function(req, res){
