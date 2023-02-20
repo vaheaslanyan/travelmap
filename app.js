@@ -71,3 +71,7 @@ app.use(userRoutes);
 app.listen(port, function(){
     console.log("Server has started .... at port "+ port+" ip: "+ip);
 });
+
+app.get('/', (req, res) => {
+	res.sendStatus(200)
+})
