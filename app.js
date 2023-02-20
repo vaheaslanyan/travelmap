@@ -13,7 +13,7 @@ var Location		= require("./models/location"),
 	middleware		= require("./middleware/index.js");
 
 //variables for app.listen
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 4000;
 const ip = process.env.IP || "127.0.0.1";
 
 //an enviromental url for the db and backup for our mongodb url in case the enviromental variable breaks for some reason
@@ -71,7 +71,3 @@ app.use(userRoutes);
 app.listen(port, function(){
     console.log("Server has started .... at port "+ port+" ip: "+ip);
 });
-
-app.get('/', (req, res) => {
-	res.sendStatus(200)
-})
