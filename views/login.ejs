@@ -1,6 +1,7 @@
 <% include partials/header %>
 
-<div class="form-divs container">
+<div class="container">
+	<div class="form-divs">
 	<h1>
 		Log In
 	</h1>
@@ -8,7 +9,7 @@
 	<form action="/login" method="POST">
 		<div class="form-group">
 			<label>Username</label>
-			<input class="form-control" type="text" name="username" placeholder="maryjane" required>
+			<input class="form-control" type="text" name="username" placeholder="marcopolo" required>
 		</div>
 		<div class="form-group">
 			<label>Password</label>
@@ -26,6 +27,7 @@
 			Forgot your password? <a href="/forgot">Reset.</a>
 		</p>
 	</div>
+</div>
 </div>
 
 <% include partials/footer %>

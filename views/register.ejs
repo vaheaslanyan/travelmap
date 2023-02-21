@@ -1,6 +1,7 @@
 <% include partials/header %>
 
 <div class="form-divs container">
+	<div class="form-divs">
 	<h1>
 		Sign up
 	</h1>
@@ -8,15 +9,15 @@
 	<form action="/register" method="POST">
 		<div class="form-group">
 			<label>Username</label>
-			<input class="form-control" type="text" name="username" placeholder="maryjane" required>
+			<input class="form-control" type="text" name="username" placeholder="marcopolo" required>
 		</div>
 		<div class="form-group">
 			<label>Name</label>
-			<input class="form-control" type="text" name="name" placeholder="Mary" required>
+			<input class="form-control" type="text" name="name" placeholder="Marco" required>
 		</div>
 		<div class="form-group">
 			<label>Email</label>
-			<input class="form-control" type="email" name="email" placeholder="mj@420.com" required>
+			<input class="form-control" type="email" name="email" placeholder="marco@pollo.com" required>
 		</div>
 		<div class="form-group">
 			<label>Password</label>
@@ -35,6 +36,7 @@
 			Already have an account? <a href="/login">Log In.</a>
 		</p>
 	</div>
+</div>
 </div>
 
 <% include partials/footer %>
